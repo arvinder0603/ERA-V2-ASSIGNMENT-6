@@ -3,6 +3,28 @@
 
 
 
+
+
+
+
+
+
+
+#Under I have explain code linewise and function wise too 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 from __future__ import print_function              |
 import torch                                       |
 import torch.nn as nn                               Here we have imported all the libraries required for Our CNN    TORCH  LIBRARY USED FOR OUR MODEL
