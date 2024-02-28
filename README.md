@@ -21,8 +21,8 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv2d(                 //First Convolution layer used for our dataset  
             in_channels=1, // This used for channel  As our image is black white so it there would be only 1 channel
             out_channels=16,  // This tells us number of  kernels used in the first layer 
-            kernel_size=5, // this is the kernel size used 5* 5 this is used for convolve in images
-            stride=3,  //This tells us the stride used like going to every x pixels // like if stride is one  kernel will convolve ignoring x pixels 
+            kernel_size=3, // this is the kernel size used 5* 5 this is used for convolve in images
+            stride=5,  //This tells us the stride used like going to every x pixels // like if stride is one  kernel will convolve ignoring x pixels 
             padding=2  // This padding like outer sides of images so, outer layer feature are not fadded away 
         )
         self.relu1 = nn.ReLU()   //This is activation function to get non linearity 
@@ -32,8 +32,8 @@ class CNN(nn.Module):
         self.conv2 = nn.Conv2d(
             in_channels=16,
             out_channels=32,
-            kernel_size=5,
-            stride=3,
+            kernel_size=3,
+            stride=5,
             padding=2
         )
         self.relu2 = nn.ReLU() 
