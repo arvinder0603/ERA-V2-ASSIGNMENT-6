@@ -95,26 +95,31 @@ valid_loader = torch.utils.data.DataLoader(
 
 
 
-//Here in down we have written functions for training of data 
-
+//Here in down we have written functions for training  and testing of data 
 
 from tqdm import tqdm
+
+
+//This is function to train model which take input model( NN ), DEVICE(CPU/GPU) train_loader which we have written above and optimizer(This is function used in backpropagation for changing weights at every neuron ) 
+// epochs -> number of times model predict and give output and learn from loss.  valid_loader->for loading data used in validating train results
 
 def train(model, device, train_loader, optimizer, epoch, valid_loader):
     model.train()
     pbar = tqdm(train_loader)
-    for batch_idx, (data, target) in enumerate(pbar):
+    for batch_idx, (data, target) in enumerate(pbar):                         //Flow for model training model train learn  give output and again learn.
         data, target = data.to(device), target.to(device)
-        optimizer.zero_grad()
+        optimizer.zero_grad() //for batch training 
         output = model(data)
-        loss = F.nll_loss(output, target)
-        loss.backward()
+        loss = F.nll_loss(output, target) // calculate number of wrong outcome
+        loss.backward() // backpropagation being  done
         optimizer.step()
         pbar.set_description(desc=f'loss={loss.item()} batch_id={batch_idx}')
 
     # Validate the model after each epoch
     validate(model, device, valid_loader)
 
+
+//This function is to validate data while training
 def validate(model, device, valid_loader):
     model.eval()
     valid_loss = 0
@@ -137,5 +142,12 @@ def validate(model, device, valid_loader):
     print('Validation Accuracy: {:.2f}%'.format(100. * correct / len(valid_loader.dataset)))
 
 
+device = "cuda"
+model = Model().to(device)
+ //Here we have used SGD used   in backpropagation for weights and learning rate used  get gloabal minima and momentum so our model dont get stuck in local minmia
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+
+for epoch in range(1, 20):
+    train(model, device, train_loader, optimizer, epoch, valid_loader)
 
 
